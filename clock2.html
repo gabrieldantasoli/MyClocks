@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>light clock</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
+
+      *{
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+          font-family: 'Russo One',sans-serif;
+      }
+
+      body{
+          width: 100vw;
+          min-height: 100vh;
+          background-color: rgb(237, 237, 237);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+      }
+      div.clock{
+          position: relative;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 90vw;
+          height: 90vw;
+          max-width: 300px;
+          max-height: 300px;
+          border-radius: 50%;
+          border: 5px solid rgb(255,255,255);
+          box-shadow: 5px 5px 10px rgb(162, 162, 162),
+                      inset 5px 5px 15px rgba(255,255,255,0.8),
+                      inset 10px 10px 30px rgb(220, 220, 220),   inset -5px -5px 25px rgb(167, 167, 167);
+      }
+      .center{
+          width: 10px;
+          height: 10px;
+          background-color: rgb(237, 237, 237);
+          border: 3px solid #000;
+          border-radius: 50%;
+          z-index: 1000;
+      }
+      .clock span{
+          position: absolute;
+          color: rgb(79, 79, 79);
+          text-align: center;
+          inset: 15px;
+          transform: rotate(calc(30deg * var(--i)));
+      }
+      .clock span b{
+          opacity: 0.9;
+          display: inline-block;
+          transform: rotate(calc(-30deg * var(--i)));
+      }
+      .circle{
+          position: absolute;
+          width: 215px;
+          height: 215px;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: flex-start;
+          z-index: 10;
+      }
+      .circle i{
+          position: absolute;
+          width: 8px;
+          height: 50%;
+          background-color: var(--clr);
+          transform-origin: bottom;
+          
+          transform: scale(0.9);
+      }
+      .circle:nth-child(2) i{
+          width: 6px;
+      }
+      .circle:nth-child(3) i{
+          width: 2px;
+      }
+      .circle2{
+          width: 200px;
+          height: 200px;
+          z-index: 10;
+      }
+      .circle3{
+          width: 180px;
+          height: 180px;
+          z-index: 9;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="clock">
+        <div class="center"></div>
+        <div class="circle" style="--clr: rgb(247, 243, 32)" id="mn">
+          <i></i>
+        </div>
+        <div class="circle circle2" style="--clr: rgb(74, 255, 13)" id="sc">
+          <i></i>
+        </div>
+        <div class="circle circle3" style="--clr: rgb(246, 23, 23)" id="hr">
+          <i></i>
+        </div>
+
+        <span style="--i: 1"><b>1</b></span>
+        <span style="--i: 2"><b>2</b></span>
+        <span style="--i: 3"><b>3</b></span>
+        <span style="--i: 4"><b>4</b></span>
+        <span style="--i: 5"><b>5</b></span>
+        <span style="--i: 6"><b>6</b></span>
+        <span style="--i: 7"><b>7</b></span>
+        <span style="--i: 8"><b>8</b></span>
+        <span style="--i: 9"><b>9</b></span>
+        <span style="--i: 10"><b>10</b></span>
+        <span style="--i: 11"><b>11</b></span>
+        <span style="--i: 12"><b>12</b></span>
+      </div>
+    </div>
+
+    <script>
+        var hour = document.querySelector('#hr') ;
+        var minute = document.querySelector('#mn') ;
+        var second = document.querySelector('#sc') ;
+
+        setInterval(() => {
+            var date = new Date() ;
+            var hr = date.getHours() ;
+            var mn = date.getMinutes() ;
+            var sc = date.getSeconds() ;
+
+            if (hr > 12) {
+                hr -= 12 ;
+            } ;
+
+            minute.style.transform = `rotateZ(${mn*6}deg)` ;
+            second.style.transform = `rotateZ(${sc*6}deg)` ;
+            hour.style.transform = `rotateZ(${hr*30}deg)` ;
+        })
+    </script>
+  </body>
+</html>
